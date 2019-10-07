@@ -1,0 +1,21 @@
+.homepage-item {
+	border: 1px solid black;
+	background-color: lightcoral;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	color: white;
+	align-items: center;
+	min-width: 200px;
+
+	& img {
+		width: 150px;
+		height: 150px;
+		transition: all 0.5s ease;
+
+		&:hover {
+			cursor: pointer;
+			transform: scale(1.05);
+		}
+	}
+}
