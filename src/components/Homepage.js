@@ -44,7 +44,16 @@ class Homepage extends Component {
 	render() {
 		const itemDisplay = this.state.items.map((item) => <Item {...item} key={item.id} />);
 
-		return <div className="homepage-container">{itemDisplay}</div>;
+		return (
+			<div className="homepage-container">
+				<div className="title-container">
+					<h1>The Great Climbs</h1>
+					<h6>Climb with us</h6>
+				</div>
+				{itemDisplay}
+				<div className="homepage-footer">Footer</div>
+			</div>
+		);
 	}
 }
 

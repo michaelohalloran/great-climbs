@@ -2,10 +2,16 @@ import React from "react";
 import "./Item.scss";
 
 const Item = ({ name, img }) => {
+	const openModal = (e) => {
+		console.log(e);
+	};
+
 	return (
 		<div className="homepage-item">
 			<img src={img} alt={name} />
-			<h3>{name}</h3>
+			<button onClick={openModal} className="homepage-btn">
+				{name}
+			</button>
 		</div>
 	);
 };
