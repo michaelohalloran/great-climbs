@@ -1,21 +1,28 @@
-.form-container {
+.signin-container {
 	display: flex;
+	flex-direction: column;
+	height: 80vh;
 	justify-content: space-evenly;
-	/* align-items: center; */
-	/* height: 73vh; */
-	// background: lightcoral;
+	align-items: center;
+	margin: 2%;
+	// background: green;
+	width: 45%;
+	border: 1px solid black;
 
-	.signin-container,
-	.signup-container {
-		display: flex;
-		flex-direction: column;
-		height: 80vh;
-		justify-content: space-evenly;
-		align-items: center;
-		margin: 2%;
-		// background: green;
-		width: 45%;
-		border: 1px solid black;
+	& input {
+		padding: 1.5em;
+		border: none;
+		border-bottom: 2px solid gray;
+		outline: none;
+		transition: all 0.6s ease-in-out;
+
+		&:focus {
+			transform: scale(1.05);
+		}
+	}
+
+	& input[type="password"] {
+		letter-spacing: 0.3em;
 	}
 
 	& button {
