@@ -3,6 +3,7 @@ import "./App.css";
 import Homepage from "./components/Homepage";
 import Navbar from "./components/Navbar";
 import Climb from "./components/Climb";
+import Signin from "./components/Signin";
 import { Route, Switch } from "react-router-dom";
 import seedItems from "./components/seedItems";
 
@@ -23,6 +24,7 @@ function App() {
 						<Climb {...routeProps} climb={findClimb(routeProps.match.params.climbName)} />
 					)}
 				/>
+				<Route exact path="/sign-in" component={Signin} />
 				{/* https://github.com/michaelohalloran/react-color-picker/blob/master/src/Palette/App.js */}
 			</Switch>
 		</div>
