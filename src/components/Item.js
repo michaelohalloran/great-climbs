@@ -11,13 +11,26 @@ const Item = ({ img, name, linkUrl }) => {
 
 	return (
 		<div className="homepage-item">
-			<img src={img} alt={name} />
-			{/* <button onClick={openModal} className="homepage-btn">
-				{name}
-			</button> */}
-			<Link to={`/climb/${linkUrl}`} className="homepage-btn">
-				{name}
-			</Link>
+			<div className="card-container">
+				<div className="front-item">
+					<img src={img} alt={name} />
+					{/* <button onClick={openModal} className="homepage-btn">
+						{name}
+					</button> */}
+					<Link to={`/climb/${linkUrl}`} className="homepage-btn">
+						{name}
+					</Link>
+				</div>
+				<div className="back-item">
+					<Link to={`/climb/${linkUrl}`} className="homepage-btn">
+						{name}
+					</Link>
+					<p>Length: </p>
+					<p>Time: </p>
+					<p>Average grade: </p>
+					<p>Price: </p>
+				</div>
+			</div>
 		</div>
 	);
 };

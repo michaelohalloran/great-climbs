@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Item from "./Item";
 import "./Homepage.scss";
 import seedItems from "./seedItems";
+import Video from "./Video";
+import Footer from "./Footer";
 
 class Homepage extends Component {
 	state = {
@@ -20,12 +22,8 @@ class Homepage extends Component {
 
 		return (
 			<div className="homepage-container">
-				<div className="title-container">
-					<h1>The Great Climbs</h1>
-					<h6>Climb with us</h6>
-				</div>
+				<Video />
 				{itemDisplay}
-				<div className="homepage-footer">Footer</div>
 			</div>
 		);
 	}

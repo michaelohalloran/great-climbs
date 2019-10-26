@@ -6,6 +6,7 @@ import Climb from "./components/Climb";
 import Auth from "./components/Auth";
 import { Route, Switch } from "react-router-dom";
 import seedItems from "./components/seedItems";
+import Footer from "./components/Footer";
 
 function App() {
 	const findClimb = (climbName) => {
@@ -27,6 +28,7 @@ function App() {
 				<Route exact path="/sign-in" component={Auth} />
 				{/* https://github.com/michaelohalloran/react-color-picker/blob/master/src/Palette/App.js */}
 			</Switch>
+			<Footer />
 		</div>
 	);
 }

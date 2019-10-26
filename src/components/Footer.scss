@@ -1,0 +1,17 @@
+.homepage-footer {
+	width: 100%;
+	grid-column: span 6;
+	text-align: center;
+	color: white;
+	font-weight: bold;
+	background: rgb(78, 73, 73);
+	/* display: flex; */
+	padding: 3rem;
+
+	ul {
+		display: flex;
+		justify-content: space-around;
+		list-style: none;
+		border-top: 2px solid white;
+	}
+}
