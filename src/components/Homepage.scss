@@ -43,7 +43,7 @@
 @media (max-width: 900px) {
 	.homepage-container {
 		.homepage-item {
-			grid-column: span 6;
+			grid-column: span 6 !important;
 			// min-width: 100%; // for flex
 		}
 	}
