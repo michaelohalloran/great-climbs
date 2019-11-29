@@ -2,7 +2,7 @@ const {
 	GraphQLSchema,
 	GraphQLObjectType,
 	GraphQLString,
-	GraphQLInt,
+	GraphQLID,
 	GraphQLFloat,
 	GraphQLBoolean,
 	GraphQLList
@@ -84,7 +84,7 @@ const fakeClimbs = [
 const ClimbType = new GraphQLObjectType({
 	name: "Climb",
 	fields: () => ({
-		id: { type: GraphQLString },
+		id: { type: GraphQLID },
 		name: { type: GraphQLString },
 		location: { type: GraphQLString },
 		latitude: { type: GraphQLFloat },
