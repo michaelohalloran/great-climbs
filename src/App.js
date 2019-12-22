@@ -7,6 +7,7 @@ import Auth from "./components/Auth";
 import { Route, Switch } from "react-router-dom";
 import seedItems from "./components/seedItems";
 import Footer from "./components/Footer";
+import AddClimb from "./components/AddClimb";
 
 function App() {
 	const findClimb = (climbName) => {
@@ -18,6 +19,7 @@ function App() {
 			<Navbar />
 			<Switch>
 				<Route exact path="/" component={Homepage} />
+				<Route exact path="/add-climb" component={AddClimb} />
 				<Route
 					exact
 					path="/climb/:climbName"

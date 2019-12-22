@@ -1,0 +1,25 @@
+.climb-form-container {
+	// background: linear-gradient(to right, #56ccf2, #2f80ed);
+	text-align: center;
+
+	.climb-input-container {
+		margin: 2% 0;
+		label {
+			text-transform: uppercase;
+			margin-right: 2%;
+		}
+
+		input {
+			border: none;
+			outline: none;
+			border-bottom: 1px solid black;
+			background: transparent;
+			width: 50%;
+			// transition: width 2s;
+
+			// &:focus {
+			// 	width: 50%;
+			// }
+		}
+	}
+}

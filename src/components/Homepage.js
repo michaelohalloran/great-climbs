@@ -3,7 +3,6 @@ import Item from "./Item";
 import "./Homepage.scss";
 import seedItems from "./seedItems";
 import Video from "./Video";
-import Footer from "./Footer";
 
 class Homepage extends Component {
 	state = {
