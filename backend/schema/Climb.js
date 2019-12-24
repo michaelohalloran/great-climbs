@@ -5,7 +5,8 @@ const {
 	GraphQLID,
 	GraphQLFloat,
 	GraphQLBoolean,
-	GraphQLList
+	GraphQLList,
+	GraphQLInt
 } = require("graphql");
 
 const fakeClimbs = [
@@ -81,6 +82,67 @@ const fakeClimbs = [
 	}
 ];
 
+const fakeUsers = [
+	{
+		id: 1,
+		name: "Bob",
+		email: "bob@gmail.com",
+		comments: [
+			{ userId: 1, climbId: "2", rating: 5, text: "Great ride on Mauna Kea" },
+			{ userId: 1, climbId: "1", rating: 5, text: "Tough climb" }
+		]
+	},
+	{
+		id: 2,
+		name: "James",
+		email: "james@gmail.com",
+		comments: [
+			{ userId: 2, climbId: "2", rating: 5, text: "Mauna Kea was fun" },
+			{ userId: 2, climbId: "3", rating: 4, text: "Evans a long climb" },
+			{ userId: 2, climbId: "1", rating: 5, text: "Pikes long and hard" }
+		]
+	},
+	{
+		id: 3,
+		name: "Peter",
+		email: "peter@gmail.com",
+		comments: [
+			{ userId: 3, climbId: "4", rating: 4, text: "Brutal Zoncolan" },
+			{ userId: 3, climbId: "5", rating: 5, text: "Lemmon was great" }
+		]
+	}
+];
+
+const CommentType = new GraphQLObjectType({
+	name: "Comment",
+	fields: () => ({
+		userId: { type: GraphQLID },
+		user: {
+			type: UserType,
+			resolve: (parent, args) => {
+				// return fakeUsers.map((user) => user.comments).filter((comment) => comment.userId === parent.userId);
+				return fakeUsers.find((user) => user.id === parent.userId);
+			}
+		},
+		climbId: { type: GraphQLID },
+		rating: { type: GraphQLFloat },
+		text: { type: GraphQLString }
+	})
+});
+
+const UserType = new GraphQLObjectType({
+	name: "User",
+	fields: () => ({
+		// TODO non-nullable?
+		id: { type: GraphQLID },
+		name: { type: GraphQLString },
+		email: { type: GraphQLString },
+		comments: { type: new GraphQLList(CommentType) }
+	})
+});
+
+// TODO bring user ratings and comments in
+// TODO add description field (when admins type it on client)
 const ClimbType = new GraphQLObjectType({
 	name: "Climb",
 	fields: () => ({
@@ -97,7 +159,21 @@ const ClimbType = new GraphQLObjectType({
 		// dates:
 		guide: { type: GraphQLString },
 		// image
-		isAvailable: { type: GraphQLBoolean }
+		isAvailable: { type: GraphQLBoolean },
+		comments: {
+			type: new GraphQLList(CommentType),
+			// NOTE: parent here is the climb, so parent.id would be this climb's id (i.e., the climb we're using in this resolve function)
+			resolve: (parent, args) => {
+				console.log("parent", parent);
+				return fakeUsers.reduce((commentList, nextUser) => {
+					const commentMatch = nextUser.comments.find((comment) => comment.climbId === parent.id);
+					if (commentMatch) {
+						commentList.push(commentMatch);
+					}
+					return commentList;
+				}, []);
+			}
+		}
 	})
 });
 
@@ -108,6 +184,7 @@ const RootQuery = new GraphQLObjectType({
 			type: ClimbType,
 			// id will be used to retrieve specific climb
 			args: { id: { type: GraphQLString } },
+			// TODO add async?
 			resolve: (parent, args) => {
 				// get data from DB/other source
 				return fakeClimbs.find((climb) => climb.id === args.id);
@@ -115,8 +192,49 @@ const RootQuery = new GraphQLObjectType({
 		},
 		climbs: {
 			type: new GraphQLList(ClimbType),
+			// TODO add async?
 			resolve: () => {
 				return fakeClimbs;
+			}
+		},
+		user: {
+			type: UserType,
+			args: { id: { type: GraphQLID } },
+			resolve: (parent, { id }) => {
+				return fakeUsers.find((user) => user.id === id);
+			}
+		},
+		users: {
+			type: new GraphQLList(UserType),
+			// TODO add async?
+			resolve: () => {
+				return fakeUsers;
+			}
+		},
+		comments: {
+			type: new GraphQLList(CommentType),
+			resolve: () => {
+				// return fakeUsers.reduce((comments, nextUser) => {
+				// 	comments.push(nextUser.comments);
+				// 	return comments;
+				// }, []);
+				// console.log("fakeUsers: ", fakeUsers.map((user) => user.comments));
+				return fakeUsers
+					.map((user) => user.comments)
+					.reduce((finalComments, nextArr) => finalComments.concat(nextArr), []);
+			}
+		},
+		commentsByUser: {
+			type: new GraphQLList(CommentType),
+			args: { id: { type: GraphQLID } },
+			resolve: (parent, { id }) => {
+				// this is array of comments inside an array:
+				const allComments = fakeUsers.reduce((finalComments, nextUser) => {
+					return finalComments.concat(nextUser.comments);
+				}, []);
+				// NOTE: need +id to make it a number, since userId is type Number
+				const match = allComments.filter((comment) => comment.userId === +id);
+				return match;
 			}
 		}
 	}

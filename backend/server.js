@@ -23,6 +23,10 @@ mongoose
 	.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true })
 	.then(() => console.log("Connected to database"))
 	.catch((err) => `Error in connecting to database: ${err}`);
+// const { connection } = mongoose;
+// connection.once("open", () => {
+// 	console.log("Mongoose connection open");
+// });
 
 // app.get("/", (req, res) => {
 // 	res.send("Sample endpoint");
