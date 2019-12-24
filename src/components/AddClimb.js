@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./AddClimb.scss";
 
 class AddClimb extends Component {
+	// TODO add start and ending lat/lng and/or altitude to make grade calculation
 	state = {
 		name: "",
 		altitude: 0,
