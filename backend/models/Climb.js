@@ -14,12 +14,13 @@ const climbSchema = new Schema(
 		distance: { type: Number, required: true },
 		guide: { type: String, required: true },
 		isAvailable: { type: Boolean, required: true },
-		image: { type: String }
+		image: { type: String },
+		comment: { type: Schema.Types.ObjectId, ref: "comments" }
 	},
 	{
 		timestamps: true
 	}
 );
 
-const Climb = mongoose.model("Climb", climbSchema);
+const Climb = mongoose.model("climbs", climbSchema);
 module.exports = Climb;

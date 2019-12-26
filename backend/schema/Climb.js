@@ -9,6 +9,10 @@ const {
 	GraphQLInt
 } = require("graphql");
 
+const Climb = require("../models/Climb");
+const User = require("../models/User");
+const Comment = require("../models/Comment");
+
 const fakeClimbs = [
 	{
 		id: "1",
@@ -115,6 +119,7 @@ const fakeUsers = [
 
 const CommentType = new GraphQLObjectType({
 	name: "Comment",
+	// this is wrapped in a function to avoid throwing error when it reaches "UserType" (which is defined below)
 	fields: () => ({
 		userId: { type: GraphQLID },
 		user: {
@@ -240,10 +245,87 @@ const RootQuery = new GraphQLObjectType({
 	}
 });
 
+const Mutation = new GraphQLObjectType({
+	name: "Mutation",
+	fields: {
+		addClimb: {
+			type: ClimbType,
+			args: {
+				name: { type: GraphQLString },
+				location: { type: GraphQLString },
+				latitude: { type: GraphQLFloat },
+				longitude: { type: GraphQLFloat },
+				altitude: { type: GraphQLFloat },
+				rating: { type: GraphQLFloat },
+				price: { type: GraphQLFloat },
+				distance: { type: GraphQLFloat },
+				avgGrade: { type: GraphQLFloat },
+				guide: { type: GraphQLString },
+				// TODO image, comments
+				isAvailable: { type: GraphQLBoolean }
+			},
+			resolve: (parent, args) => {
+				// TODO handle avgGrade, rating, isAvailable
+				const { name, altitude, avgGrade, location, latitude, longitude, price, distance, guide, image } = args;
+
+				let climb = new Climb({
+					name,
+					altitude,
+					avgGrade,
+					location,
+					latitude,
+					longitude,
+					price,
+					distance,
+					guide,
+					isAvailable: true,
+					image
+				});
+
+				// return climb.save().then((res) => console.log("res: ", res)).catch((err) => console.log("err: ", err));
+				return climb.save();
+			}
+		},
+
+		// mutation {
+		// 	addClimb(name:"Scanuppia", altitude:4865, avgGrade:17.8, location:"Italy",
+		// 	latitude:46.1327695, longitude:8.3983191, price: 697.9, distance:4.5,guide:"Thomas",isAvailable:true) {
+		// 	  name,
+		// 	  altitude
+		// 	}
+		//   }
+
+		addComment: {
+			type: CommentType,
+			args: {
+				userId: { type: GraphQLID },
+				user: { type: UserType },
+				climbId: { type: GraphQLID },
+				rating: { type: GraphQLFloat },
+				text: { type: GraphQLString }
+			},
+			resolve: (parent, { userId, user, climbId, rating, text }) => {
+				let comment = new Comment({
+					userId,
+					user,
+					climbId,
+					rating,
+					text
+				});
+				// return comment.save();
+			}
+		}
+		// addUser: {
+		// 	type: UserType
+		// }
+	}
+});
+
 // climb needs: name, location, rating, lat/lng, price, distance, avg. grade
 // dates offered, guide, image, sold-out
 const climbSchema = new GraphQLSchema({
-	query: RootQuery
+	query: RootQuery,
+	mutation: Mutation
 });
 
 module.exports = climbSchema;
