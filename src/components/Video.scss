@@ -1,12 +1,13 @@
 .video-container {
 	// background: red;
-	grid-column: span 6;
-	height: 500px;
+	// grid-column: span 6;
+	height: 33rem;
 	position: relative;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	margin-bottom: 3%;
 
 	.bg-video {
 		position: absolute;

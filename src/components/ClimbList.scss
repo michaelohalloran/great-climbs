@@ -1,0 +1,6 @@
+.climb-list-container {
+	display: grid;
+	grid-gap: 1em;
+	grid-auto-flow: dense;
+	grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+}

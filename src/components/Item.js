@@ -10,26 +10,23 @@ const Item = ({ img, name, linkUrl }) => {
 	// console.log(props);
 
 	return (
-		<div className="homepage-item">
-			<div className="card-container">
-				<div className="front-item">
-					<img src={img} alt={name} />
-					{/* <button onClick={openModal} className="homepage-btn">
+		<div className="card-container">
+			<div className="front-item">
+				<img src={img} alt={name} />
+				{/* <button onClick={openModal} className="homepage-btn">
 						{name}
 					</button> */}
-					<Link to={`/climb/${linkUrl}`} className="homepage-btn">
-						{name}
-					</Link>
-				</div>
-				<div className="back-item">
-					<Link to={`/climb/${linkUrl}`} className="homepage-btn">
-						{name}
-					</Link>
-					<p>Length: </p>
-					<p>Time: </p>
-					<p>Average grade: </p>
-					<p>Price: </p>
-				</div>
+				<Link to={`/climb/${linkUrl}`} className="homepage-btn">
+					{name}
+				</Link>
+			</div>
+			<div className="back-item">
+				<Link to={`/climb/${linkUrl}`} className="homepage-btn">
+					{name}
+				</Link>
+				<p>Length: </p>
+				<p>Average grade: </p>
+				<p>Price: </p>
 			</div>
 		</div>
 	);

@@ -1,12 +1,14 @@
 .homepage-container {
-	display: grid;
+	display: flex;
+	flex-direction: column;
+	// display: grid;
 	background: linear-gradient(to right, #56ccf2, #2f80ed);
 	// grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 	// grid-template-columns: repeat(auto-fill, minmax(200px, 32%));
-	grid-template-columns: repeat(6, 1fr);
-	// grid-template-area: ;
-	grid-auto-flow: dense;
-	grid-gap: 1%;
+	// grid-template-columns: repeat(6, 1fr);
+	// // grid-template-area: ;
+	// grid-auto-flow: dense;
+	// grid-gap: 1%;
 	// background: linear-gradient(to right, #56ccf2, #2f80ed);
 	// grid-template-columns: repeat(auto-fill, minmax(200px, 32%));
 	// justify-content: center;
@@ -14,37 +16,37 @@
 	// margin: 7%;
 	padding: 3rem;
 
-	.homepage-item {
-		// background: lightsalmon;
-		grid-column: span 2;
+	// .homepage-item {
+	// 	// background: lightsalmon;
+	// 	grid-column: span 2;
 
-		// https://css-irl.info/controlling-leftover-grid-items/
-		// https://stackoverflow.com/questions/7687597/using-last-child-with-class-selector
-		&:last-child,
-		&:nth-last-child(2) {
-			// background: green;
-			grid-column: span 3;
-		}
-	}
+	// 	// https://css-irl.info/controlling-leftover-grid-items/
+	// 	// https://stackoverflow.com/questions/7687597/using-last-child-with-class-selector
+	// 	&:last-child,
+	// 	&:nth-last-child(2) {
+	// 		// background: green;
+	// 		grid-column: span 3;
+	// 	}
+	// }
 
 	// display: flex;
 	// flex-wrap: wrap;
 }
 
-@media (max-width: 1100px) {
-	.homepage-container {
-		.homepage-item {
-			grid-column: span 3;
-			// min-width: 45%; // for flex
-		}
-	}
-}
+// @media (max-width: 1100px) {
+// 	.homepage-container {
+// 		.homepage-item {
+// 			grid-column: span 3;
+// 			// min-width: 45%; // for flex
+// 		}
+// 	}
+// }
 
-@media (max-width: 900px) {
-	.homepage-container {
-		.homepage-item {
-			grid-column: span 6 !important;
-			// min-width: 100%; // for flex
-		}
-	}
-}
+// @media (max-width: 900px) {
+// 	.homepage-container {
+// 		.homepage-item {
+// 			grid-column: span 6 !important;
+// 			// min-width: 100%; // for flex
+// 		}
+// 	}
+// }
