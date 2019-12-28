@@ -2,7 +2,7 @@ import React from "react";
 import "./Item.scss";
 import { withRouter, Link } from "react-router-dom";
 
-const Item = ({ img, name, linkUrl }) => {
+const Item = ({ img, name, linkUrl, length, price, grade }) => {
 	// const openModal = (e) => {
 	// 	console.log(e);
 	// };
@@ -24,9 +24,9 @@ const Item = ({ img, name, linkUrl }) => {
 				<Link to={`/climb/${linkUrl}`} className="homepage-btn">
 					{name}
 				</Link>
-				<p>Length: </p>
-				<p>Average grade: </p>
-				<p>Price: </p>
+				<p>Length: {length} miles</p>
+				<p>Average grade: {grade}%</p>
+				<p>Price: ${price} </p>
 			</div>
 		</div>
 	);

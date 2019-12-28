@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Signin.scss";
+import Button from "./Button";
 
 class Signin extends Component {
 	constructor(props) {
@@ -21,8 +22,7 @@ class Signin extends Component {
 		});
 	};
 
-	handleChange = (e) => {
-		const { name, value } = e.target;
+	handleChange = ({ target: { name, value } }) => {
 		this.setState({
 			[name]: value
 		});
@@ -55,7 +55,7 @@ class Signin extends Component {
 					onChange={this.handleChange}
 				/>
 				<input type="password" name="password" placeholder="Password" required onChange={this.handleChange} />
-				<button>{this.props.btnText}</button>
+				<Button text={this.props.btnText} />
 			</form>
 		);
 	}
