@@ -4,6 +4,15 @@
 	margin: 2%;
 	padding: 2rem;
 
+	textarea {
+		width: 70%;
+	}
+
+	.add-climb-btn {
+		display: block;
+		margin: 0 auto;
+	}
+
 	.climb-input-container {
 		margin: 2% 0;
 		label {

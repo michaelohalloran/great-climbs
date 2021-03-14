@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./AddClimb.scss";
+import Button from "./Button";
 
 class AddClimb extends Component {
 	// TODO add start and ending lat/lng and/or altitude to make grade calculation
@@ -61,10 +62,10 @@ class AddClimb extends Component {
 			<div className="climb-form-container">
 				<form onSubmit={this.handleSubmit}>
 					{this.buildFormFields()}
-					<textarea name="desc" id="" cols="30" rows="10">
+					<textarea name="desc" id="" cols="50" rows="20">
 						Desc
 					</textarea>
-					<button>Submit</button>
+					<Button classNames="add-climb-btn" text="Submit" />
 				</form>
 			</div>
 		);

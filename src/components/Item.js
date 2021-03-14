@@ -16,12 +16,12 @@ const Item = ({ img, name, linkUrl, length, price, grade }) => {
 				{/* <button onClick={openModal} className="homepage-btn">
 						{name}
 					</button> */}
-				<Link to={`/climb/${linkUrl}`} className="homepage-btn">
+				<Link to={`/climb/${linkUrl}`} className="homepage-btn-front">
 					{name}
 				</Link>
 			</div>
 			<div className="back-item">
-				<Link to={`/climb/${linkUrl}`} className="homepage-btn">
+				<Link to={`/climb/${linkUrl}`} className="homepage-btn-back">
 					{name}
 				</Link>
 				<p>Length: {length} miles</p>

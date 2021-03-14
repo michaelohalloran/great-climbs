@@ -37,24 +37,28 @@
 			height: 100%;
 		}
 	}
-}
 
-.homepage-btn {
-	position: absolute;
-	top: 0;
-	left: 50%;
-	transform: translate(-50%, 0);
-	border: none;
-	width: 50%;
-	background: rgba(0, 0, 0, 0.4);
-	color: white;
-	font-size: 1.5rem;
-	font-weight: bold;
-	cursor: pointer;
-	text-decoration: none;
-	text-align: center;
+	.homepage-btn-front {
+		position: absolute;
+		top: 0;
+		left: 50%;
+		transform: translate(-50%, 0);
+	}
 
-	&:hover {
-		background-color: rgba(0, 0, 0, 0.9);
+	.homepage-btn-front,
+	.homepage-btn-back {
+		border: none;
+		width: 50%;
+		background: rgba(0, 0, 0, 0.4);
+		color: white;
+		font-size: 1.5rem;
+		font-weight: bold;
+		cursor: pointer;
+		text-decoration: none;
+		text-align: center;
+
+		&:hover {
+			background-color: rgba(0, 0, 0, 0.9);
+		}
 	}
 }
