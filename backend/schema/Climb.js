@@ -35,4 +35,6 @@ const climbSchema = new mongoose.Schema({
     isAvailable: Boolean
 });
 
+// TODO: can avgGrade and lat/lng related things be calculated from above? (i.e. remove them as properties?)
+
 module.exports = mongoose.model('Climb', climbSchema);
