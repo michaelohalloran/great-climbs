@@ -3,8 +3,8 @@ const { Schema } = mongoose;
 
 const commentSchema = new Schema({
 	text: { type: String, required: true },
-	user: { type: Schema.Types.ObjectId, ref: "users" },
-	climb: { type: Schema.Types.ObjectId, ref: "climbs" },
+	user: { type: Schema.Types.ObjectId, ref: "User" },
+	climb: { type: Schema.Types.ObjectId, ref: "Climb" },
 	rating: { type: Number, required: true }
 });
 

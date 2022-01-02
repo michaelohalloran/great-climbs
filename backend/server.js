@@ -5,9 +5,11 @@ const app = express();
 const cors = require("cors");
 require("dotenv").config();
 const mongoose = require("mongoose");
-const Climb = require('./schema/Climb');
+const Climb = require('./models/Climb');
 const climbSeeds = require('./seeds/ClimbSeeds');
 const climbRoutes = require('./routes/climbs');
+const userRoutes = require('./routes/users');
+const { checkAuth } = require('./controllers/auth');
 
 // MIDDLEWARE
 app.use(cors());
@@ -20,6 +22,7 @@ app.use(express.json());
 // 	})
 // );
 app.use('/api/v1/climbs', climbRoutes);
+app.use('/api/v1/users', userRoutes);
 
 // ATLAS DB
 const uri = process.env.MONGO_URI;
@@ -44,8 +47,12 @@ connection.once("open", () => {
 	console.log("Mongoose connection open");
 });
 
-app.get("/", (req, res) => {
-	res.send("Sample endpoint");
+app.get("/", checkAuth, (req, res) => {
+	return res.status(200).json({
+		status: 'Success',
+		user: req.user,
+		msg: 'Auth check succeeded'
+	})
 });
 
 

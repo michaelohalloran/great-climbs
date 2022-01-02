@@ -1,4 +1,4 @@
-const Climb = require('../schema/Climb');
+const Climb = require('../models/Climb');
 
 const REQUIRED_FIELDS = ['name', 'altitude', 'avgGrade', 'distance', 'location',
 'latitude', 'longitude'];
@@ -23,7 +23,7 @@ const getValidatedClimb = (requestBody) => {
 const getAllClimbs = async (req, res, next) => {
     try {
         const climbs = await Climb.find();
-        res.status(200).json({climbs});
+        res.status(200).json({status: 'Success', results: climbs.length, climbs});
     } catch(err) {
         res.status(400).json({err});
     }
@@ -67,7 +67,7 @@ const addClimb = async(req, res) => {
 const updateClimb = async(req, res) => {
     const updates = getValidatedClimb(req.body);
     try {
-        await Climb.findByIdAndUpdate(req.params.id, updates);
+        await Climb.findByIdAndUpdate(req.params.id, updates, {new: true, runValidators: true});
         return res.status(201).json({msg: 'Update succeeded!'})
     } catch(err) {
         return res.status(400).json({message: 'Could not update climb'});
@@ -84,4 +84,42 @@ const deleteClimb = async(req, res) => {
     }
 }
 
-module.exports = {getAllClimbs, getClimb, addClimb, updateClimb, deleteClimb};
+/************************************** */
+// COMMENTS
+/************************************** */
+// TODO: remove const addComment = async(req, res) => {
+//     const {text, rating} = req.body;
+//     const climb = await Climb.findById(req.params.id);
+//     if (!climb) {
+//         return res.status(404).json({msg: 'Climb does not exist'});
+//     }
+//     const comment = new Comment(text, rating);
+//     climb.comments.push(comment);
+//     // await climb.save();
+// }
+
+const updateComment = async(req, res) => {
+    const climb = await Climb.findById(req.params.id);
+    // TODO: add
+    if (!climb) {
+        return res.status(404).json({msg: 'Climb does not exist'});
+    }
+    const comment = climb.comments.find(comment => comment.id === req.params.commentId);
+    if (!comment) {
+        return res.status(404).json({msg: 'Comment does not exist'});
+    }
+
+
+}
+
+const deleteComment = async(req, res) => {
+
+}
+
+
+
+module.exports = {
+    getAllClimbs, getClimb, addClimb, updateClimb, deleteClimb,
+    // addComment, 
+    updateComment, deleteComment
+};
