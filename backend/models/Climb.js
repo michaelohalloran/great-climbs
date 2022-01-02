@@ -30,7 +30,7 @@ const climbSchema = new Schema({
         type: String,
         required: [true, 'Climb must have a difficulty ranking'],
         enum: {
-            values: ['easy', 'challenging', 'hard', 'legendary'],
+            values: ['moderate', 'challenging', 'hard', 'legendary'],
             message: 'Climb must be easy, challenging, hard, or legendary'
         } 
     },
@@ -49,7 +49,7 @@ const climbSchema = new Schema({
     comments: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'comments' // TODO: verify naming
+            ref: 'Comment'
         }
     ]
 });

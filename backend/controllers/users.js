@@ -9,13 +9,11 @@ const getOwnProfile = async(req, res) => {
 // TODO: res.json({status: 'Success', data})
 const signup = async (req, res) => {
     const { email, name, password, passwordConfirm } = req.body;
-    // TODO: validation (check if email, pw)
     const missingField = !email || !password || !passwordConfirm || !name;
     if (missingField) {
         return res.status(422).json({msg: 'Missing required field'});   
     }
     const user = await User.findOne({email});
-    console.log('user: ', user);
     if (user) {
         return res.status(422).json({msg: 'User already exists'});
     } 
@@ -23,9 +21,7 @@ const signup = async (req, res) => {
         return res.status(422).json({msg: 'Passwords must match'});
     }
     const newUser = new User({email, name, password, passwordConfirm});
-    // await newUser.save(); // TODO: remove
     const token = await newUser.generateAuthToken();
-    console.log('token: ', token);
     return res.status(201).json({newUser, token});
 }
 

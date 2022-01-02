@@ -4,22 +4,53 @@ const Climb = require('../models/Climb');
 const addComment = async(req, res) => {
     const {text, rating} = req.body;
     const {climbId} = req.params;
-    const climb = await Climb.findById(climbId);
-    if (!climb) {
-        return res.status(404).json({status: 'fail', msg: 'No such climb'});
+
+    try {
+        const climb = await Climb.findById(climbId);
+        if (!climb) {
+            return res.status(404).json({status: 'fail', msg: 'No such climb'});
+        }
+        // Make new comment, then associate it to both the climb and the user making it
+        const newComment = new Comment({text, rating});
+        // console.log('newCom before: ', newComment);
+        newComment.climb = climb.id;
+        newComment.user = req.user.id;
+        // console.log('newCom AFTER: ', newComment);
+        // console.log('climb before: ', climb);
+        climb.comments = (climb.comments || []).concat(newComment.id);
+        // console.log('climb AFTER: ', climb);
+        // console.log('req user before: ', req.user);
+        req.user.comments = (req.user.comments || []).concat(newComment.id);
+        // console.log('req user AFTER: ', req.user);
+        // console.log('CLIMB AFTER: ', climb);
+        // console.log('newCom: ', newComment);
+        // await climb.save();
+        // await newComment.save();
+        // await req.user.save();
+        const promises = [climb.save(), newComment.save(), req.user.save()];
+        await Promise.all(promises);
+        return res.status(201).json({status: 'success', data: {newComment}});
+    } catch (err) {
+        // TODO: fix this to catch each of possible error
+        console.log('err: ', err);
+        return res.status(500).json({status: 'fail', msg: `Something went wrong`, err});
     }
-    const newComment = new Comment({text, rating});
-    // TODO: fix
-    newComment.climb = climb;
-    console.log('climb: ', climb)
-    climb.comments = (climb.comments || []).push(newComment);
-    newComment.user = req.user;
-    console.log('req user: ', req.user);
-    req.user.comments = (req.user.comments || []).push(newComment);
-    await req.user.save();
-    await climb.save();
-    await newComment.save();
+
 }
+
+// const updateComment = async(req, res) => {
+//     const climb = await Climb.findById(req.params.id);
+//     // TODO: add
+//     if (!climb) {
+//         return res.status(404).json({msg: 'Climb does not exist'});
+//     }
+//     const comment = climb.comments.find(comment => comment.id === req.params.commentId);
+//     if (!comment) {
+//         return res.status(404).json({msg: 'Comment does not exist'});
+//     }
+
+
+// }
 
 const updateComment = async(req, res) => {
     const {id} = req.params;

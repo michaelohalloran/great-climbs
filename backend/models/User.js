@@ -34,13 +34,9 @@ const userSchema = new Schema({
         required: [true, 'Password is required'],
         select: false
     },
-    passwordConfirm: {
-        type: String,
-        required: [true, 'Password confirmation is required']
-    },
     comments: {
         type: Schema.Types.ObjectId,
-        ref: 'comments'
+        ref: 'Comment'
     },
     // TODO: ?
     tokenList: [
@@ -78,14 +74,10 @@ userSchema.methods.generateAuthToken = async function() {
 
 userSchema.pre('save', async function (next) {
     const user = this;
-    // verify pwConfirm match, 
     if (user.isModified('password')) { // i.e. when user is new or updated
         const hashedPw = await bcrypt.hash(user.password, 12);
         user.password = hashedPw;
-        // TODO: remove? 
-        // user.passwordConfirm = null;
     }
-    console.log('in pre save, right before next')
     next();
 });
 

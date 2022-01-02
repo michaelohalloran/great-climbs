@@ -37,6 +37,7 @@ mongoose
 				if (err) {
 					console.log(`Something went wrong: ${err}`);
 				}
+				console.log('Finished seeding climbs');
 			});
 		}
 

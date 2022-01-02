@@ -3,6 +3,7 @@ module.exports = [
 	{
 		id: 1,
 		name: "Pikes Peak",
+		difficulty: 'hard',
 		altitude: 14130,
 		avgGrade: 6.4,
 		location: "Colorado Springs, CO",
@@ -17,6 +18,7 @@ module.exports = [
 	{
 		id: 2,
 		name: "Mauna Kea",
+		difficulty: 'legendary',
 		altitude: 13803,
 		avgGrade: 6.1,
 		location: "Mauna Kea, HI",
@@ -31,6 +33,7 @@ module.exports = [
 	{
 		id: 3,
 		name: "Mount Evans",
+		difficulty: 'moderate',
 		altitude: 14265,
 		avgGrade: 4.6,
 		location: "Idaho Springs, CO",
@@ -45,6 +48,7 @@ module.exports = [
 	{
 		id: 4,
 		name: "Zoncolan",
+		difficulty: 'legendary',
 		altitude: 5740,
 		avgGrade: 11.9,
 		location: "Ravascletto, Italy",
@@ -59,6 +63,7 @@ module.exports = [
 	{
 		id: 5,
 		name: "Mount Lemmon",
+		difficulty: 'challenging',
 		altitude: 9171,
 		avgGrade: 4.2,
 		location: "Tucson, AZ",

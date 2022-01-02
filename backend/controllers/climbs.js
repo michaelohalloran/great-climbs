@@ -84,42 +84,7 @@ const deleteClimb = async(req, res) => {
     }
 }
 
-/************************************** */
-// COMMENTS
-/************************************** */
-// TODO: remove const addComment = async(req, res) => {
-//     const {text, rating} = req.body;
-//     const climb = await Climb.findById(req.params.id);
-//     if (!climb) {
-//         return res.status(404).json({msg: 'Climb does not exist'});
-//     }
-//     const comment = new Comment(text, rating);
-//     climb.comments.push(comment);
-//     // await climb.save();
-// }
-
-const updateComment = async(req, res) => {
-    const climb = await Climb.findById(req.params.id);
-    // TODO: add
-    if (!climb) {
-        return res.status(404).json({msg: 'Climb does not exist'});
-    }
-    const comment = climb.comments.find(comment => comment.id === req.params.commentId);
-    if (!comment) {
-        return res.status(404).json({msg: 'Comment does not exist'});
-    }
-
-
-}
-
-const deleteComment = async(req, res) => {
-
-}
-
-
 
 module.exports = {
-    getAllClimbs, getClimb, addClimb, updateClimb, deleteClimb,
-    // addComment, 
-    updateComment, deleteComment
+    getAllClimbs, getClimb, addClimb, updateClimb, deleteClimb
 };

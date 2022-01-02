@@ -17,7 +17,7 @@ router
     .post('/:climbId/comments', checkAuth, commentController.addComment)
     
 router
-    .put('/:id/comments/:commentId', climbController.updateComment)
-    .delete('/:id/comments/:commentId', climbController.deleteComment)
+    .put('/:id/comments/:commentId', commentController.updateComment)
+    .delete('/:id/comments/:commentId', commentController.deleteComment)
 
 module.exports = router;
