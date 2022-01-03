@@ -6,10 +6,13 @@ const { checkAuth } = require('../controllers/auth');
 
 router
     .get('/', climbController.getAllClimbs)
-    .post('/', climbController.addClimb);
+    .post('/', climbController.addClimb)
+    .delete('/', climbController.deleteAllClimbs)
 
 router
     .get('/:id', climbController.getClimb)
+    // TODO: for testing, remove later
+    .get('/:id/comments', commentController.getComments)
     .put('/:id', climbController.updateClimb)
     .delete('/:id', climbController.deleteClimb)
 

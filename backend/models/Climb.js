@@ -45,14 +45,18 @@ const climbSchema = new Schema({
         required: true
     },
     guide: String,
-    isAvailable: Boolean,
-    comments: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Comment'
-        }
-    ]
+    isAvailable: Boolean
+}, {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
 });
+
+// https://mongoosejs.com/docs/populate.html#populate-virtuals
+climbSchema.virtual('comments', {
+    ref: 'Comment',
+    localField: '_id',
+    foreignField: 'climb'
+})
 
 // TODO: can avgGrade and lat/lng related things be calculated from above? (i.e. remove them as properties?)
 

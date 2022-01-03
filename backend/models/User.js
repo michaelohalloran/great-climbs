@@ -9,42 +9,48 @@ const validator = require('validator');
 // TODO: img or gravatar
 // https://www.npmjs.com/package/validator
 // https://mongoosejs.com/docs/validation.html
-const userSchema = new Schema({
-    name: {
-        type: String,
-        unique: true,
-        trim: true,
-        required: [true, 'Username is required']
-    },
-    email: {
-        type: String,
-        unique: true,
-        trim: true,
-        lowercase: true,
-        required: [true, 'Email is required'],
-        validate(value) {
-            if (!validator.isEmail(value)) {
-                throw new Error('Valid email required');
+const userSchema = new Schema(
+    {
+        name: {
+            type: String,
+            unique: true,
+            trim: true,
+            required: [true, 'Username is required']
+        },
+        email: {
+            type: String,
+            unique: true,
+            trim: true,
+            lowercase: true,
+            required: [true, 'Email is required'],
+            validate(value) {
+                if (!validator.isEmail(value)) {
+                    throw new Error('Valid email required');
+                }
             }
-        }
+        },
+        password: {
+            type: String,
+            min: [6, 'Password must be at least 6 characters'],
+            required: [true, 'Password is required'],
+            select: false
+        },
+        // comments: {
+        //     type: Schema.Types.ObjectId,
+        //     ref: 'Comment'
+        // },
+        // TODO: ?
+        tokenList: [
+            {
+                token: {type: String}
+            }
+        ]
     },
-    password: {
-        type: String,
-        min: [6, 'Password must be at least 6 characters'],
-        required: [true, 'Password is required'],
-        select: false
-    },
-    comments: {
-        type: Schema.Types.ObjectId,
-        ref: 'Comment'
-    },
-    // TODO: ?
-    tokenList: [
-        {
-            token: {type: String}
-        }
-    ]
-});
+    {
+        toJSON: { virtuals: true },
+        toObject: { virtuals: true }
+    }
+);
 
 userSchema.methods.toJSON = function() {
     const user = this.toObject();

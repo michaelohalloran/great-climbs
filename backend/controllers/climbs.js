@@ -33,7 +33,7 @@ const getAllClimbs = async (req, res, next) => {
 const getClimb = async(req, res, next) => {
     try {
         const {id} = req.params;
-        const climb = await Climb.findById(id);
+        const climb = await Climb.findById(id).populate('comments');
         if (!climb) {
             return res.status(404).json({message: 'Climb not found'});
         }
@@ -84,7 +84,17 @@ const deleteClimb = async(req, res) => {
     }
 }
 
+// TODO: protect this and above routes, require admin
+const deleteAllClimbs = async(req, res) => {
+    try {
+        await Climb.deleteMany();
+        return res.status(204).json({msg: 'Deleted all'});
+    } catch(err) {
+        return res.status(400).json({message: 'Failed to delete climbs'});
+    }
+}
+
 
 module.exports = {
-    getAllClimbs, getClimb, addClimb, updateClimb, deleteClimb
+    getAllClimbs, getClimb, addClimb, updateClimb, deleteClimb, deleteAllClimbs
 };
